@@ -1,0 +1,25 @@
+name: Docker image build
+
+on:
+  push:
+    branches:
+      - master  # You can change this to 'main' if you are using 'main' as your default branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ ishika1108 }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build & Push Docker image
+        run: |
+          docker build -t is-hika/podman:v0.1 .
+          docker push is-hika/podman:v0.1
